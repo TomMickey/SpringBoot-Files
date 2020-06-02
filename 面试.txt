@@ -1,0 +1,52 @@
+1. @SpringBootApplication注释在内部有什么用处?
+作为Spring引导文档，@SpringBootApplication注释等同于同时使用@Configuration、@EnableAutoConfiguration和@ComponentScan及其默认属性。
+Spring Boot允许开发人员使用单个注释而不是多个注释。但是，众所周知，Spring提供了松散耦合的特性，我们可以根据项目需要为每个注释使用这些特性。
+2. 如何在不使用BasePACKAGE过滤器的情况下排除程序包？
+过滤程序包的方法不尽相同。但是弹簧启动提供了一个更复杂的选项，可以在不接触组件扫描的情况下实现这一点。在使用注释@ SpringBootApplication时，可以使用排除属性。
+请参阅下面的代码片段：
+@SpringBootApplication(exclude= {Employee.class})
+public class FooAppConfiguration {}
+3. 如何禁用特定的自动配置类？
+若发现任何不愿使用的特定自动配置类，可以使用@EnableAutoConfiguration的排除属性。
+//By using "exclude"
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+另一方面，如果类别不在类路径上，则可以使用excludeName类注解，并且指定完全限定名。
+//By using "excludeName"
+@EnableAutoConfiguration(excludeName={Foo.class})
+此外，Spring Boot还具有控制排除自动配置类列表的功能，可以通过使用spring.autoconfigure.exclude property来实现。可以将其添加到 propertie应用程序中，
+并且可以添加逗号分隔的多个类。
+//By using property file
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+图片来源：unsplash.com/@helloimnik
+4. 什么是Spring Actuator？它有什么优势？
+这是Spring Boot中最常见的面试问题之一。根据Spring文件：
+执行器是一个制造术语，指的是移动或控制某物的机械装置。执行机构可以从一个小的变化中产生大量的运动。
+众所周知，Spring Boot提供了许多自动配置特性，帮助开发人员快速开发生产组件。但是，当考虑调试和如何调试，如果出现问题，总是需要分析日志并挖掘应用程序的数据流，
+检查问题出在何处。因此，Spring Actuator提供了方便的访问这些类型的途径。它提供了许多特性，例如创建了什么样的bean、控制器中的映射、CPU使用情况等等。
+它还可以将自动收集和审计健康状况和指标应用到应用程序中。
+它提供了一种非常简单的方法来访问少数生产就绪的REST端点，并从Web获取各种信息。但是通过使用这些端点，你可以做很多事情来查看端点文档。
+没有必要担心安全问题;如果存在Spring Security，则默认使用Spring Security的内容协商策略保护这些端点。或者，可以在RequestMatcher的帮助下配置自定义安全性。
+5. 如何启用/禁用执行器？
+启用/禁用致动器很容易；最简单的方法是使特性能够将依赖项(Maven/Gradle)添加到spring-boot-starter-actuator，即启动器。如果不想启用致动器，那么就不要添加依赖项。
+Maven依赖项：
+<dependencies>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+</dependencies>
+6. 什么是Spring Initializer?
+这个问题并不难，但面试官总是以此测试候选人的专业知识。
+Spring Initializer是一个网络应用程序，它可以生成一个Spring Boot项目，包含快速启动所需的一切。和往常一样，我们需要一个好的项目框架；它有助于你正确创建项目结构/框架。
+图片来源：unsplash.com/@jontyson
+7. 什么是执行器停机？
+关机是允许应用程序正常关机的端点。默认情况下，此功能不启用。你可以在应用程序属性文件中使用management . endpoint . shut down . enabled = true来启用此选项。
+但是该方法请谨慎使用。
+8. 是否可以在Spring boot中更改嵌入式Tomcat服务器的端口?
+是的，更改端口是可行的。可以使用application.properties文件更改端口。但需要提到“server.port”（即server.port=8081）。
+确保项目类路径中有application.properties；后续工作将由REST Spring框架接手。如果提到server.port=0，那么它将自动分配任何可用的端口。
+9. 是否可以在Spring Boot中覆盖或替换嵌入式Tomcat？
+是的，可以使用starter依赖项将嵌入式Tomcat替换为任何其他服务器。可以根据需要使用SpringBootStarter Jetty或SpringBootStarter作为每个项目的依赖项。
+10. 可以在Spring Boot application中禁用默认的Web服务器吗？
+Spring的主要优势是提供灵活性来构建松散耦合的应用程序。Spring提供了在快速配置中禁用网络服务器的功能。可以使用应用程序属性来配置网络应用程序类型，
+例如 spring.main.web-application-type=none.
