@@ -1,0 +1,7 @@
+@PropertySource 注解加载指定的配置文件
+@Value(“#{}”) 表示SpEl表达式通常用来获取bean的属性，或者调用bean的某个方法。当然还有可以表示常量
+@Value(“${xxxx}”)注解从配置文件读取值的用法
+当bean通过@Value(#{“”}) 获取其他bean的属性，或者调用其他bean的方法时，只要该bean (Beab_A)能够访问到被调用的bean(Beab_B)，即要么Beab_A 和Beab_B在同一个容器中，
+或者Beab_B所在容器是Beab_A所在容器的父容器。(拿我上面贴出来的代码为例在springMvc项目中，dataSource这个bean一般是在springContext.xml文件中申明的，
+而loginController这个bean一般是在springMvc.xml文件中申明的，虽然这两个bean loginController和dataSource不在一个容器，但是loginController所在容器继承了
+dataSource所在的容器，所以在loginController这个bean中通过@Value(“#{dataSource.url}”)能够获取到dataSource的url属性)。
