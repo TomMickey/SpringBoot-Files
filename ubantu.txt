@@ -1,0 +1,11 @@
+linux安装mysql   https://blog.csdn.net/mengruobaobao/article/details/79541194
+
+ubantu安装mysql
+1：更新一下源列表
+sudo apt-get update	不更新会出现有几个软件包无法下载
+2：安装mysql
+sudo apt-get install mysql-server mysql-client
+3：mysql服务进行重新启动
+sudo service mysql restart
+4：登录mysql
+mysql -uroot -p
