@@ -1,0 +1,17 @@
+mybatis中#{}与${}的区别
+mybatis中#{}与${}的区别
+#{}起到占位符的作用：
+如果传入的参数是基本类型(byte,short,int,float,double,char,boolean)以及其包装类和String，那么#{}中的变量可以随意起名。
+如果传入的参数是pojo类型，那么#{}中的参数必须是pojo中的属性.属性.属性...
+${}起到拼接符的作用：
+如果传入的参数是基本类型(byte,short,int,float,double,char,boolean)以及其包装类和String，那么${}中的变量只能是value。
+如果传入的参数是pojo类型，那么${}中的参数和#{}中的一样，也必须是pojo中的属性.属性.属性...
+注意：使用${}拼接符存在sql注入风险，不建议使用，用法比较：
+<select id="findBlogLike" resultType="Blog">
+　　SELECT * FROM BLOG
+　　<if test="author != null and author.name != null">
+　　　　<!-- author_name like "%${author.name}%" -->
+
+　　　　author_name like "%"#{author.name} "%"
+　　</if>
+</select>
