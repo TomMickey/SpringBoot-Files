@@ -1,0 +1,9 @@
+1.查看应用程序所占内存
+1.1)Linux下查看某一个进程所占用的内存，首先可以通过ps命令找到进程id
+比如 ps -ef | grep kafka 可以看到kafka这个程序的进程id
+top -p 2913
+这样可以动态实时的看到CPU和内存的占用率
+1.2)
+也可直接使用ps命令查看： ps -aux | grep kafka
+1.3)
+还可以查看进程的status文件： cat /proc/pid/status
